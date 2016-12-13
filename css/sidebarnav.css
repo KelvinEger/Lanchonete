@@ -12,7 +12,6 @@
   font-weight: normal;
   font-style: normal;
 }
-// For more information about Material Design Iconic Font (examples and downloads) visit website: http://zavoloklom.github.io/material-design-iconic-font/
 
 [class^="md-"], [class*=" md-"] {
   display: inline-block;
@@ -20,8 +19,6 @@
   font-size: inherit;
   speak: none;
   text-rendering: auto;
-
-  // Better Font Rendering
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

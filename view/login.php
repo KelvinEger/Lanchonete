@@ -26,18 +26,18 @@ session_start();
         <![endif]-->
     </head>
     <body>
-       <script>
+        <script>
             function envia() {
                 var name = $("input[name=name]").val();
                 var password = $("input[name=password]").val();
                 var info = {"name": name, "password": password};
                 $.ajax({
                     type: 'post',
-                    url: 'trataLogin.php',
+                    url: 'valida.php',
                     data: info,
                 }).done(function (data) {
                     Materialize.toast(data, 2000);
-                lista();
+                    lista();
                 });
             }
         </script>
@@ -92,7 +92,7 @@ session_start();
         </div>
         <br /><br />
         <section>
-        <div class="container">
+            <div class="container">
                 <center>
                     <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
                         <form class="col s12" method="post" action="#">
@@ -123,13 +123,13 @@ session_start();
                             <br />
                             <center>
                                 <div class="row">
-                                   <a onclick="envia()" class="waves-effect green darken-1t btn  modal-action" type="submit" name="envia">Entrar</a>
+                                    <a onclick="envia()" class="waves-effect green darken-1t btn  modal-action" type="submit" name="envia">Entrar</a>
                                 </div>
                             </center>
                         </form>
                     </div>
                 </center>
-        </div>
+            </div>
         </section>
         <footer class="page-footer" style="background-color:#4db6ac;">
             <div class="container">
