@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+.navbar-color{
+	background-color:#006DA2;
+	border-radius:0px;
+	border-left-width:0px;
+	border-right-width:0px;
+	border-top-width:0px;
+	border-bottom-width:0px;
+}
+.navbar-brand{
+	color:#FFFFFF;
+	font-weight:bolder;
+}
+.navbar-brand:hover{
+	color:#00284E;
+	font-weight:bolder;
+}
+#foot{
+	margin-bottom:0px;
+}
+.col, .s12{
+	width:250px;
+	padding:0px;
+}

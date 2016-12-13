@@ -1,0 +1,236 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Lanchonete - Editar Cardápio</title>
+
+    <!-- Bootstrap -->
+    <!--<link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Estilo.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <!--</head>
+  <body>
+  <div class="page-header">
+  <center>
+  <h1>Lanchonete Sem Nome <br /><small class="subtitle">Frase de abordagem</small></h1>
+  </center>
+</div>
+<div class="container">
+	<div class="row"><br />
+    <br /><br /><br /><br />
+<style type="text/css">
+#button-add{
+	margin-left:85%;
+	margin-top:-17%;
+}
+</style>	
+                        <div class="panel panel-default">
+  							<!-- Default panel contents -->
+  							<!--<div class="panel-heading"><h3><b>Cardápio</b></h3></div>
+                            <div>
+                            <?php  
+                  	//include database connection
+  					include ("../libs/connect.php");
+  					//Foi enviada alguma action?
+ 					 $action = isset($_GET['enviar']) ? $_GET['enviar'] : "";
+  					// Se foi excluido um registro a pagina delete.php redireciona pra index!
+  					if($action=='deleted'){ echo "<div>O registro foi excluído com sucesso!</div>"; }
+  					//Executar consulta para obter dados de usuarios
+  					$query = "SELECT id, product, firstname, lastname FROM cardapio";
+  					$stmt = $con->prepare( $query );
+  					$stmt->execute();
+  					//Quantidade de registros retornados
+  					$num = $stmt->rowCount();
+                  
+                    if($num > 0){ //Se a consulta retornou registro(s)
+      				//Inicio da tabela e titulo das colunas
+      				echo "<table class='table table-hover'>";
+      				echo "  <tr>";
+                    echo "    <th><span class='glyphicon glyphicon-cog'></span></th>";
+                    echo "    <th>N°</th>";
+      				echo "    <th>Produto</th>";
+      				echo "    <th>Componentes do Pedido</th>";
+      				echo "    <th>Preço</th>";
+      				echo "  </tr>";
+
+					//Percorrer os registros retornados pela consulta
+      				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	  				//extract row -> pode usar {$firstname} no lugar de $row['firstname'] 
+	  				extract($row);
+	  				//Um registro em cada linha da tabela html
+                      echo "  <tr>";
+                        echo "    <td>
+                        <div class='col-md-4'>
+<button type='button' class='btn btn-default' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil'></span></button>
+
+<!-- Modal -->
+<!--<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+        <h4 class='modal-title' id='myModalLabel'>Modal title</h4>
+      </div>
+      <div class='modal-body'>
+      	<div class='modal-body'>
+        	<center>
+        		<form class='form-horizontal' method='POST' action='?acao_enviar'>
+     					<div class='input-group col-md-6'>
+  									<span class='input-group-addon' id='basic-addon1'><i class='glyphicon glyphicon-shopping-cart'></i></span>
+  									<input type='text' class='form-control' placeholder='Produto' aria-describedby='basic-addon1' name='product' required>
+						</div><br /><br />
+     					<div class='input-group col-md-6'>
+  									<span class='input-group-addon' id='basic-addon1'><i class='glyphicon glyphicon-pencil'></i></span>
+  									<textarea type='text' class='form-control' placeholder='Componentes do Produto' aria-describedby='basic-addon1' name='firstname' required></textarea>
+						</div><br /><br />
+                    	<div class='input-group col-md-6'>
+  									<span class='input-group-addon' id='basic-addon1'><i class='glyphicon glyphicon-usd'></i></span>
+  									<input type='number' rows='4' class='form-control' placeholder='Preço' aria-describedby='basic-addon1' name='lastname'>
+						</div><br /><br />
+                    	<div class='modal-footer'>
+        						<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>
+        						<button type='submit' class='btn btn-primary' name='enviar' value='update'>Editar</button>
+      				</div>
+				</form>
+         </center>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class='col-md-6'>
+<!-- Small modal -->
+<!--<button type='button' class='btn btn-default' data-toggle='modal' data-target='.bs-example-modal-sm'><span class='glyphicon glyphicon-trash'></span></button>
+
+<div class='modal fade bs-example-modal-sm' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+  <div class='modal-dialog modal-sm' role='document'>
+    <div class='modal-content'>
+     <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+        <h4 class='modal-title' id='myModalLabel'>Modal title</h4>
+      </div>
+      	<div class='modal-body'>
+        	<div class='modal-body'>
+      	<h4>Deseja mesmo excluir este item ?</h4>
+        </div>
+        <div class='modal-footer'>
+        	<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>
+       		<a href='../view/excluir.php'><button type='submit' class='btn btn-primary' name='enviar' value='delete'>Excluir</button></a>
+      </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+								</td>";
+                        echo "	  <td>{$id}</td>";
+	  					echo "    <td>{$product}</td>";
+	  					echo "    <td>{$firstname}</td>";
+	  					echo "    <td>{$lastname}</td>";
+	  					echo "  </tr>";
+      					}
+      					echo "</table>";
+  						} else {
+      					echo "Nenhum registro foi encontrado!";
+  						}  
+  						?>  
+                        
+                        
+                   <button type="button" class="btn btn-primary" id="button-add" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Adicionar Itens</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+      <center>
+        <form class="form-horizontal" method="POST" action="?acao_enviar">
+     				<div class="input-group col-md-6">
+  						<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+  						<input type="text" class="form-control" placeholder="Produto" aria-describedby="basic-addon1" name="product" required>
+					</div><br /><br />
+     				<div class="input-group col-md-6">
+  						<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-pencil"></i></span>
+  						<textarea type="text" class="form-control" placeholder="Primeiro Nome" aria-describedby="basic-addon1" name="firstname" required></textarea>
+					</div><br /><br />
+                    <div class="input-group col-md-6">
+  						<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-usd"></i></span>
+  						<input type="number" rows="4" class="form-control" placeholder="Segundo Nome" aria-describedby="basic-addon1" name="lastname">
+					</div><br /><br />
+                    <div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        				<button type="submit" class="btn btn-primary" name="inserir" value="create">Enviar</button>
+      				</div>
+				</form>
+                </center>
+      </div>
+     
+    </div>
+  </div>
+</div>
+                  </div>
+  	<?php
+    $action = isset($_POST['inserir']) ? $_POST['inserir'] : "";
+    //Se a action enviada for para criar um registro
+    if($action=='create'){
+      //include database connection
+      include ("libs/connect.php");
+	try{
+	  //SQL para insert!
+	  $query = "INSERT INTO cardapio SET product = ?, firstname = ?, lastname = ? ";
+	  $stmt = $con->prepare($query);
+	  //Preencher dados na SQL
+	  $stmt->bindParam(1, $_POST['product']);
+	  $stmt->bindParam(2, $_POST['firstname']);
+	  $stmt->bindParam(3, $_POST['lastname']);
+	  //Executar a consulta
+	  if($stmt->execute()){
+	    echo "Registro inserido com sucesso!";
+	  }else{
+	    die('Não foi posível inserir o registro.');
+	  }	
+      }catch(PDOException $exception){ 
+	  echo "Error: " . $exception->getMessage();
+      }
+    }
+  ?>
+  
+                            <div class="page-header header"></div>
+              </div>
+						</div>
+                        
+                </center>
+	</div>
+</div>
+<br />
+<footer>
+	<center>
+	<div class="panel panel-default" id="foot">
+  		<div class="panel-body">
+    		<b>Lanchonete 2016-2017</b> <span class="glyphicon glyphicon-copyright-mark"></span> Todos os direitos reservados.<br />
+            <h5>Desenvolvido por <a href="#"><strong>Savio Alves</strong></a>.</h5>
+  		</div>
+	</div>
+    </center>
+</footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!--<script src="../js/bootstrap.min.js"></script>
+  </body>
+</html>-->

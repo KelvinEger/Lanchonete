@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Lanchonete - Cardápio</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Estilo.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div class="page-header">
+  <center>
+  <h1>Lanchonete Sem Nome <br /><small class="subtitle">Frase de abordagem</small></h1>
+  </center>
+</div>
+<style type="text/css">
+	.page-header{
+		margin-top:0px;
+	}
+	#foot{
+		margin-top:117px;
+	}
+</style>
+<div class="container">
+	<div class="row"><br /><br /><br />
+                    <br />
+     					
+                        <div class="panel panel-default">
+  							<!-- Default panel contents -->
+  							<div class="panel-heading"><h3><b>Cardápio</b></h3></div>                   
+  							<!-- Table -->
+                            <?php
+
+                  //include database connection
+  					include ("../libs/connect.php");
+  					//Foi enviada alguma action?
+ 					 $action = isset($_GET['enviar']) ? $_GET['enviar'] : "";
+  					// Se foi excluido um registro a pagina delete.php redireciona pra index!
+  					if($action=='deleted'){ echo "<div>O registro foi excluído com sucesso!</div>"; }
+  					//Executar consulta para obter dados de usuarios
+  					$query = "SELECT id, product, firstname, lastname FROM cardapio";
+  					$stmt = $con->prepare( $query );
+  					$stmt->execute();
+  					//Quantidade de registros retornados
+  					$num = $stmt->rowCount();
+                  
+                    if($num > 0){ //Se a consulta retornou registro(s)
+      				//Inicio da tabela e titulo das colunas
+							echo"<table class='table table-hover'>";
+  							echo"	<thead>";
+    						echo"	<tr>";
+                            echo"		<th>N°</th>";
+      						echo"		<th>Produto</th>";
+      						echo"		<th>Componentes do Lanche</th>";
+                            echo"		<th></th>";
+      						echo"		<th>Preço</th>";
+    						echo"	</tr>";
+  							echo"</thead>";
+                            
+                            //Percorrer os registros retornados pela consulta
+      				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	  				//extract row -> pode usar {$firstname} no lugar de $row['firstname'] 
+	  				extract($row);
+	  				//Um registro em cada linha da tabela html
+                            
+  							echo	"<tbody>";
+    						echo	"	<tr>";
+                            echo    "	  <th>{$id}</th>";
+      						echo	"	  <th scope='row'>{$product}</th>";
+      						echo	"			<td colspan='2'>{$firstname}</td>";
+                            echo    "			<td>{$lastname}</td>";
+    						echo	"	</tr>";
+  							}
+                            echo "<tbody>";
+      					echo "</table>";
+  						} else {
+      					echo "Nenhum registro foi encontrado!";
+  						}  
+                            ?>
+                            <div class="page-header header"></div>
+                            
+              	</div>
+						</div>
+                        
+                </center>
+	</div>
+</div><br /><br />
+<footer>
+	<center>
+	<div class="panel panel-default" id="foot">
+  		<div class="panel-body">
+    		<b>Lanchonete 2016-2017</b> <span class="glyphicon glyphicon-copyright-mark"></span> Todos os direitos reservados.<br />
+            <h5>Desenvolvido por <a href="#"><strong>Savio Alves</strong></a>.</h5>
+  		</div>
+	</div>
+    </center>
+</footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+</html>
